@@ -1,87 +1,81 @@
-/*import React from "react";
+import React from "react";
 
 type Square = {
-    x : number,
-    y: number,
-    status: boolean,
+  x: number;
+  y: number;
+  status: boolean;
 };
 
 type State = {
-    entities: Square[],
+  entities: Square[];
 };
 
 const createSquare = (x: number, y: number, status: boolean): Square => {
-    return {
-        x: x,
-        y: y,
-        status: status,
-    };
+  return {
+    x: x,
+    y: y,
+    status: status,
+  };
 };
 
-const state: State = 
-
-((): State => {
-    const state: State = {
-        entities: []
-    };
-
-    for (let j = 1; j <= 10; j++) {
-        for (let i: number = 1; i <= 10; i++) { 
-            state.entities.push(createSquare(i, j, false));
-        }
-    }
-    return state;
-})();
-
-interface Actions { 
-    start: () => void;
-    changeStatus: (square: {
-        status: boolean;
-    }) => void;
-}
-
-
-const calculateElements = (localState: State, actions: Actions): HTMLElement[] => {
-
-    const template = localState.entities.map(el => {
-        const div = document.createElement("div");
-        div.classList.add("field");
-        div.addEventListener("click", () => actions.changeStatus(el))
-        if (el.status) {
-            div.style.backgroundColor = "green";
-        }
-        return div;
-    })
-    return template;
-};
-
-
-const render = (localState: State, root: Element, actions: Actions): void => {  
-    const elementsArray = calculateElements(localState, actions);
-    root.replaceChildren();
-    root.append(...elementsArray);
+const state: State = ((): State => {
+  const state: State = {
+    entities: [],
   };
 
-const getActions = (localState: State, root: Element): Actions => {
-    const card = 
-    {
-    start: () => render(localState, root, card),
-    
-    changeStatus: (square: { status: boolean }) => {
-        square.status = !square.status;
-        render(localState, root, card); 
+  for (let j = 1; j <= 10; j++) {
+    for (let i: number = 1; i <= 10; i++) {
+      state.entities.push(createSquare(i, j, false));
     }
-}
-return card;
-};
-  
-  const root: Element | null = document.querySelector("#root");
-  if (root === null) {
-    throw new Error("Error")
   }
-  const actions = getActions(state, root);
-  actions.start();
-*/
+  return state;
+})();
+
+interface Actions {
+  start: () => void;
+  changeStatus: (square: { status: boolean }) => void;
+}
+
+const calculateElements = (
+  localState: State,
+  actions: Actions
+): HTMLElement[] => {
+  const template = localState.entities.map((el) => {
+    const div = document.createElement("div");
+    div.classList.add("field");
+    div.addEventListener("click", () => actions.changeStatus(el));
+    if (el.status) {
+      div.style.backgroundColor = "green";
+    }
+    return div;
+  });
+  return template;
+};
+
+const render = (localState: State, root: Element, actions: Actions): void => {
+  const elementsArray = calculateElements(localState, actions);
+  root.replaceChildren();
+  root.append(...elementsArray);
+};
+
+const getActions = (localState: State, root: Element): Actions => {
+  const card = {
+    start: () => render(localState, root, card),
+
+    changeStatus: (square: { status: boolean }) => {
+      square.status = !square.status;
+      render(localState, root, card);
+    },
+  };
+  return card;
+};
+
+const root: Element | null = document.querySelector("#root");
+if (root === null) {
+  throw new Error("Error");
+}
+const actions = getActions(state, root);
+actions.start();
 
 interface Shape {
   square: number;
@@ -158,4 +152,52 @@ const boxedNumbers = map<number, Boxed<number>>(numbers, (el) =>
   boxValue<number>(el)
 );
 
+["1", "2", "3", "4", "5"].reduce((acc, el, i) => acc + el, {});
 
+function forEach<T>(
+  arr: T[],
+  cb: (el: T, index: number, array: T[]) => void
+): void {
+  return undefined;
+}
+
+function filter<T>(arr: T[], cb: (el: T, index: number, array: T[]) => T): T[] {
+  return [];
+}
+
+function reduce<T, U>(
+  arr: T[],
+  cb: (acc: T, el: T, index: number, array: T[]) => U | T,
+  start: U
+): U | T {
+  return U || T;
+}
+
+export function DNAtoRNA(dna: string): string {
+  return dna
+    .split("")
+    .map((letter: string) => {
+      if (letter == "T") {
+        return (letter = "U");
+      } else {
+        return letter;
+      }
+    })
+    .join("");
+}
+
+export const makeNegative = (num: number): number => {
+  return -Math.abs(num);
+};
+
+export function updateLight(current: string): string | undefined {
+  return current === "green"
+    ? "yellow"
+    : current === "yellow"
+    ? "red"
+    : current === "red"
+    ? "green"
+    : undefined;
+}
+
+console.log(updateLight("yellow"));
