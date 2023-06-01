@@ -1,6 +1,5 @@
-import React from 'react';
 import { TodoItem } from '../../state';
-import styles from './ListItem.module.css'
+import styles from './ListItem.module.css';
 
 export const ListItem = (props: TodoItem) => (
     <li className={styles.listItem}>

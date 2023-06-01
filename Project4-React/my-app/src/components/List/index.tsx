@@ -1,10 +1,9 @@
-import React from 'react';
 import { TodoItem } from '../../state';
-import { ListItem } from '../ListItem/ListItem';
-//import styles from './List.module.css';
+import { ListItem } from '../ListItem';
+import './List.css';
 
 export const List = (props: {todos: TodoItem[]}) => (
-  <ul /*className={styles.list}*/>
+  <ul className="wrapper">
     {props.todos.map(el=><ListItem {...el} />)}
   </ul>
 );
