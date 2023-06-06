@@ -1,0 +1,19 @@
+.button {
+    margin-right: 5px;
+    padding: 5px;
+    border: none;
+    outline: 1px solid rgba(0,0,0,0.3);
+
+    &:hover{
+        background: rgba(0,0,0,0.3);
+        color: wheat;
+        outline: 1px solid rgba(0,0,0,0.3);
+        border: none;
+    }
+
+    &:hover .delete {
+        background-color: rgba(209, 13, 13, 0.3);
+    }
+} 
+
+    

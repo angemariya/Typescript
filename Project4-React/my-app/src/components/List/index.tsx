@@ -1,6 +1,6 @@
 import { TodoItem } from '../../state';
 import { ListItem } from '../ListItem';
-import './List.css';
+import './List.scss';
 
 export const List = (props: {todos: TodoItem[]}) => (
   <ul className="wrapper">

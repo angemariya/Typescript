@@ -1,0 +1,24 @@
+.listItem {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    align-items: baseline;
+    color: whitesmoke;
+}
+
+.button {
+    padding: 5px;
+    &:hover.delete {
+        background-color: rgba(209, 13, 13, 0.3);
+    }
+}
+
+.buttonWrapper {
+    margin-left: auto;
+    padding-left: 15px;
+}
+
+.checkBox:hover {
+    outline: 2px solid wheat;
+    cursor: pointer;
+}

@@ -1,14 +1,16 @@
 import { GlobalState } from '../../state';
 import { Form } from '../Form';
 import { List } from '../List';
-import { Slider } from '../Slider';
-import './App.css';
+import { Counter } from '../Counter';
+import './App.scss';
 
 const App = (props: GlobalState) => (
   <div className='App'>
-    <Form />
-    <List todos={props.todos}/>
-    <Slider images={props.images} page={props.page}/>
+    <div className='wrapper'>
+      <Form />
+      <List todos={props.todos}/>
+      <Counter />
+    </div>
   </div>
 );
 
