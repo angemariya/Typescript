@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 
 export const Form = () => (
     <form className={styles.form} action="">
-      <h2 className={styles.title}>Taskmaster</h2>
+      <h1 className={styles.title}>Taskmaster</h1>
       <input className={styles.textInput} type="text" placeholder="Add a new todo... " />
       <Button buttonText="Add" />
       <p>Show: </p>

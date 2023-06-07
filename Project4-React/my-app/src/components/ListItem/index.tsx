@@ -16,8 +16,8 @@ export const ListItem = (props: TodoItem) => {
       </label>
 
       <div className={styles.buttonWrapper}>
-        <Button buttonText="Edit" />
-        <Button buttonText="Delete" />
+        <Button type="primary" buttonText="Edit" />
+        <Button type="delete" buttonText="Delete" />
       </div>
     </li>
   );

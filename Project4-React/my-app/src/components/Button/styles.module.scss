@@ -11,9 +11,15 @@
         border: none;
     }
 
-    &:hover .delete {
+    &.delete:hover  {
         background-color: rgba(209, 13, 13, 0.3);
     }
+
+    &.primary:hover {
+        background-color: rgba(34, 229, 64, 0.3);;
+    }
+
 } 
+
 
     

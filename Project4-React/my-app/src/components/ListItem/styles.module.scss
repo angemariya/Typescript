@@ -1,5 +1,6 @@
 .listItem {
     display: flex;
+    align-items: baseline;
     list-style: none;
     padding: 10px;
     align-items: baseline;
@@ -22,3 +23,4 @@
     outline: 2px solid wheat;
     cursor: pointer;
 }
+
