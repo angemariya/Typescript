@@ -1,9 +1,22 @@
-import { TodoItem } from '../../state';
+import { type State } from '../App';
 import { ListItem } from '../ListItem';
 import './List.scss';
 
-export const List = (props: {todos: TodoItem[]}) => (
+export const List = 
+  (props: {
+    todos: State, 
+    onFilterCompleted:() => void,
+    onDeleteTodo: (id: number)=>void,
+    onMarkTodo: (id: number) => void,
+  }
+  ) => (
   <ul className="wrapper">
-    {props.todos.map(el=><ListItem {...el} />)}
+    {props.todos.map(el=><ListItem {...el}
+      key={el.id}
+      onDelete={props.onDeleteTodo} 
+      onFilterCompleted={props.onFilterCompleted}
+      onMarkTodo={props.onMarkTodo}
+      />)}
   </ul>
 );
+

@@ -1,8 +1,9 @@
 import styles from './styles.module.scss';
+import { type State } from '../App';
 
-export const Counter = () => (
+export const Counter = (props: {todos: State}) => (
     <div className= {styles.wrapper} >
-        <p>Total todos: </p>
-        <p>Completed todos: </p>
+        <p>Total todos: {props.todos.length}</p>
+        <p>Completed todos: {(props.todos.filter(el=>el.status===true)).length}</p>
     </div>
 );

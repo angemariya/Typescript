@@ -1,7 +1,12 @@
 import styles from './styles.module.scss';
 type ButtonType = "delete" | "primary";
 
-export const Button = (props: {buttonText: string, type?: ButtonType}) => {
+export const Button = (
+    props: {
+        buttonText: string, 
+        type?: ButtonType, 
+        onClick?: ()=>void
+    }) => {
     
     const classes: string[] = [
         styles.button, 
@@ -10,7 +15,7 @@ export const Button = (props: {buttonText: string, type?: ButtonType}) => {
     ].filter(Boolean) as string[];
 
     return (
-        <button className={classes.join(" ")}>
+        <button className={classes.join(" ")} onClick={props.onClick} >
             {props.buttonText}
         </button>
     );
