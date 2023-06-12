@@ -20,8 +20,9 @@ export const Form = (props: {
   return (
     <form className={styles.form} onSubmit={
       (e)=>{
-      e.preventDefault();
-      }}>
+        e.preventDefault();
+        setTitle("");
+        }}>
       <label className={styles.title}>Taskmaster</label>
       <input 
         className={styles.textInput} 
@@ -29,9 +30,10 @@ export const Form = (props: {
         placeholder="Add a new todo... "
         onChange={
           (e)=>{
-            setTitle(e.target.value)
+            setTitle(e.target.value);
           }
         }
+        value={title}
         />
 
       <Button 

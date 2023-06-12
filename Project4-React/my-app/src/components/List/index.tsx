@@ -8,6 +8,7 @@ export const List =
     onFilterCompleted:() => void,
     onDeleteTodo: (id: number)=>void,
     onMarkTodo: (id: number) => void,
+    onEditTodo: (id: number, title: string) => void
   }
   ) => (
   <ul className="wrapper">
@@ -16,6 +17,7 @@ export const List =
       onDelete={props.onDeleteTodo} 
       onFilterCompleted={props.onFilterCompleted}
       onMarkTodo={props.onMarkTodo}
+      onEditTodo={props.onEditTodo}
       />)}
   </ul>
 );
