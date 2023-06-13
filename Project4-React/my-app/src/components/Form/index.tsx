@@ -9,9 +9,6 @@ let id = 3;
 
 export const Form = (props: {
           todos: State, 
-          onFilterCompleted: ()=>void, 
-          onFilterActive: ()=>void,
-          onShowAll: ()=>void,
           onAddTodo:(newTodo: Item)=>void,
         } ) => {
   
@@ -23,7 +20,7 @@ export const Form = (props: {
         e.preventDefault();
         setTitle("");
         }}>
-      <label className={styles.title}>Taskmaster</label>
+      <p>Enter your todo: </p>
       <input 
         className={styles.textInput} 
         type="text" 
@@ -40,11 +37,6 @@ export const Form = (props: {
         buttonText="Add"
         onClick={()=>{props.onAddTodo({id: id++, title, status: false})}}
         />
-
-      <p>Show: </p>
-      <Button buttonText="All" onClick={props.onShowAll}/>
-      <Button buttonText="Completed" onClick={props.onFilterCompleted}/>
-      <Button buttonText="Active" onClick={props.onFilterActive}/>
     </form>
   )
 };

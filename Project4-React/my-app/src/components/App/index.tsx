@@ -3,6 +3,8 @@ import { List } from '../List';
 import { Counter } from '../Counter';
 import './App.scss';
 import { useEffect, useState } from 'react';
+import { Select } from '../Select';
+import { TodosEnter } from '../TodosEnter';
 
 export type Item = {
   id: number;
@@ -22,26 +24,13 @@ export const App = () => {
   const [todos, setTodos] = useState(state);
   const [isFilteredCompleted, setIsFilteredCompleted] = useState(false);
   const [isFilteredActive, setIsFilteredActive] = useState(false);
-
   const [listName, setListName] = useState('todos');
-  const [counter, setCounter] = useState(0);
 
-  useEffect(() => {
-    const idInterval = setInterval(() => {
-      setCounter((prev) => prev + 1);
-      console.log(counter);
-    }, 1000);
-    return () => {
-      clearInterval(idInterval);
-    };
-  }, []);
-
-  useEffect(() => {
-    const todos = localStorage.getItem(listName);
-    const parsedTodos = todos ? JSON.parse(todos) : [];
-    setTodos(parsedTodos);
-    console.log('Это use effect');
-  }, [listName]);
+    useEffect(() => {
+        const todos = localStorage.getItem(listName);
+        const parsedTodos = todos ? JSON.parse(todos) : [];
+        setTodos(parsedTodos);
+      }, [listName]);
 
   //CONTROLLER
 
@@ -59,10 +48,12 @@ export const App = () => {
 
   const filterCompletedTodo = (): void => {
     setIsFilteredCompleted(true);
+    setIsFilteredActive(false);
   };
 
   const filterActiveTodo = (): void => {
     setIsFilteredActive(true);
+    setIsFilteredCompleted(false);
   };
 
   const markTodo = (id: number): void => {
@@ -90,23 +81,21 @@ export const App = () => {
     }
   };
 
+  //type filterTodo = undefined | true | false
+
   //VIEW
   return (
     <div className='App'>
       <div className='wrapper'>
+        <TodosEnter onListName={listName} onSetListName={setListName}/>
         <Form
-          onShowAll={showAll}
-          onFilterActive={filterActiveTodo}
-          onFilterCompleted={filterCompletedTodo}
           onAddTodo={addTodo}
           todos={todos}
         />
-        <input
-          type='text'
-          onChange={(e) => setListName(e.target.value)}
-          value={listName}
-        />
-        <p>{counter}</p>
+        <Select 
+          onShowAll={showAll}
+          onFilterActive={filterActiveTodo}
+          onFilterCompleted={filterCompletedTodo}/>
         <List
           todos={
             isFilteredCompleted
@@ -120,7 +109,7 @@ export const App = () => {
           onMarkTodo={markTodo}
           onEditTodo={editTodo}
         />
-        <Counter todos={todos} />
+        <Counter todos={todos} onListName={listName}/>
       </div>
     </div>
   );
