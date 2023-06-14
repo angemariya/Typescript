@@ -7,6 +7,15 @@
     color: whitesmoke;
 }
 
+.listItem.light {
+    background-color: aliceblue;
+    color: black;
+}
+
+.listItem.dark {
+    background-color: black;
+} 
+
 .button {
     padding: 5px;
     &:hover.delete {

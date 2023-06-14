@@ -1,7 +1,8 @@
 import { Button } from '../Button';
 import type { Item } from '../App';
+import { useState, useContext } from 'react';
+import { ThemeContext } from '../ThemeContainer';
 import styles from './styles.module.scss';
-import { useState } from 'react';
 
 interface ListItemProps extends Item {
   onDelete: (id: number) => void;
@@ -13,9 +14,10 @@ interface ListItemProps extends Item {
 export const ListItem = (props: ListItemProps) => {
   const [title, setTitle] = useState(props.title)
   const [isEdited, setIsEdited] = useState(false);
+  const Theme = useContext(ThemeContext);
 
   return (
-    <li className={styles.listItem}>
+    <li className={`${styles.listItem} ${styles[Theme]}`}>
       <label>
         <input
           type='checkbox'

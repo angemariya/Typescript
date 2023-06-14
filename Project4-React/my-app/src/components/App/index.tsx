@@ -22,9 +22,9 @@ export const state: State = [
 export const App = () => {
   //MODEL
   const [todos, setTodos] = useState(state);
-  const [isFilteredCompleted, setIsFilteredCompleted] = useState(false);
-  const [isFilteredActive, setIsFilteredActive] = useState(false);
   const [listName, setListName] = useState('todos');
+
+  const [filter, setFilter] = useState<boolean | undefined>(undefined);
 
     useEffect(() => {
         const todos = localStorage.getItem(listName);
@@ -47,13 +47,11 @@ export const App = () => {
   };
 
   const filterCompletedTodo = (): void => {
-    setIsFilteredCompleted(true);
-    setIsFilteredActive(false);
+    setFilter(true)
   };
 
   const filterActiveTodo = (): void => {
-    setIsFilteredActive(true);
-    setIsFilteredCompleted(false);
+    setFilter(false)
   };
 
   const markTodo = (id: number): void => {
@@ -67,8 +65,7 @@ export const App = () => {
   };
 
   const showAll = (): void => {
-    setIsFilteredCompleted(false);
-    setIsFilteredActive(false);
+    setFilter(undefined)
   };
 
   const editTodo = (id: number, title: string): void => {
@@ -80,8 +77,6 @@ export const App = () => {
       localStorage.setItem(listName, JSON.stringify(newTodos));
     }
   };
-
-  //type filterTodo = undefined | true | false
 
   //VIEW
   return (
@@ -98,11 +93,7 @@ export const App = () => {
           onFilterCompleted={filterCompletedTodo}/>
         <List
           todos={
-            isFilteredCompleted
-              ? todos.filter((el) => el.status === true)
-              : isFilteredActive
-              ? todos.filter((el) => el.status === false)
-              : todos
+            filter !== undefined ? todos.filter(el=>el.status === filter) : todos
           }
           onFilterCompleted={filterCompletedTodo}
           onDeleteTodo={deleteTodo}

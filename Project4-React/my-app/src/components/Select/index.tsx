@@ -19,8 +19,7 @@ export const Select = (props: {
     }
 
     const handleSelect = (event: BaseSyntheticEvent) => {
-        setFilter(event.target.value)
-
+      setFilter(event.target.value)
     }
  
   return (
