@@ -1,7 +1,6 @@
 import { Button } from '../Button';
 import type { Item } from '../App';
-import { useState, useContext } from 'react';
-import { ThemeContext } from '../ThemeContainer';
+import { useState } from 'react';
 import styles from './styles.module.scss';
 
 interface ListItemProps extends Item {
@@ -14,11 +13,10 @@ interface ListItemProps extends Item {
 export const ListItem = (props: ListItemProps) => {
   const [title, setTitle] = useState(props.title)
   const [isEdited, setIsEdited] = useState(false);
-  const Theme = useContext(ThemeContext);
 
   return (
-    <li className={`${styles.listItem} ${styles[Theme]}`}>
-      <label>
+    <li className={styles.listItem}>
+      <label className={styles.label}>
         <input
           type='checkbox'
           className={styles.checkBox}
@@ -29,18 +27,18 @@ export const ListItem = (props: ListItemProps) => {
           }}
           checked={props.status}
         />
-        {!isEdited ? (
-          props.title
-        ) : (
+        {isEdited ? (
           <form onSubmit={
             (e) => { 
               e.preventDefault();
-              props.onEditTodo(props.id, props.title);
+              props.onEditTodo(props.id, title);
               setIsEdited(false);
             }
             }>
-            <input value={title} type='text' onChange={(event)=>setTitle(event.currentTarget.value)}/>
+            <input className={styles.editInput} value={title} type='text' onChange={(event)=>setTitle(event.target.value)}/>
           </form>
+        ) : (
+          props.title
         )}
       </label>
 

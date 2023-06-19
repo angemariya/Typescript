@@ -1,0 +1,37 @@
+.App {
+  min-height: 100vh;
+  min-width: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111828;
+}
+
+.wrapper {
+  background-color: #1F2937;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.App.dark {
+  background-color: #111828;
+  color: white;
+}
+
+.App.light {
+  background-color: #c4c0c0;
+  color: #1F2937;
+}
+
+
+.wrapper.dark>* {
+  background-color: #1F2937;
+  color: white;
+}
+
+.wrapper.light {
+  background-color: #5e5e5e;
+  border: 1px solid #464647;
+}

@@ -1,10 +1,12 @@
+import { useContext, useEffect, useState } from 'react';
 import { Form } from '../Form';
 import { List } from '../List';
 import { Counter } from '../Counter';
-import './App.scss';
-import { useEffect, useState } from 'react';
 import { Select } from '../Select';
+import { Clock } from '../Clock'
 import { TodosEnter } from '../TodosEnter';
+import { ThemeContext } from '../ThemeContainer';
+import styles from './App.module.scss';
 
 export type Item = {
   id: number;
@@ -14,15 +16,13 @@ export type Item = {
 
 export type State = Item[];
 
-export const state: State = [
-  { id: 1, title: 'New todo', status: false },
-  { id: 2, title: 'New todo', status: false },
-];
+export const state: State = [];
 
 export const App = () => {
   //MODEL
   const [todos, setTodos] = useState(state);
   const [listName, setListName] = useState('todos');
+  const Theme = useContext(ThemeContext);
 
   const [filter, setFilter] = useState<boolean | undefined>(undefined);
 
@@ -80,9 +80,10 @@ export const App = () => {
 
   //VIEW
   return (
-    <div className='App'>
-      <div className='wrapper'>
-        <TodosEnter onListName={listName} onSetListName={setListName}/>
+    <div className={`${styles.App} ${styles[Theme]}`}>
+      <div className={`${styles.wrapper} ${styles[Theme]}`}>
+        <Clock />
+        <TodosEnter onSetListName={setListName}/>
         <Form
           onAddTodo={addTodo}
           todos={todos}
@@ -90,7 +91,8 @@ export const App = () => {
         <Select 
           onShowAll={showAll}
           onFilterActive={filterActiveTodo}
-          onFilterCompleted={filterCompletedTodo}/>
+          onFilterCompleted={filterCompletedTodo}
+        />
         <List
           todos={
             filter !== undefined ? todos.filter(el=>el.status === filter) : todos
@@ -100,7 +102,7 @@ export const App = () => {
           onMarkTodo={markTodo}
           onEditTodo={editTodo}
         />
-        <Counter todos={todos} onListName={listName}/>
+        <Counter todos={todos} onListName={listName} onSetListName={setListName}/>
       </div>
     </div>
   );

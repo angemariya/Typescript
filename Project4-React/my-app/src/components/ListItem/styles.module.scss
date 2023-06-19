@@ -7,6 +7,22 @@
     color: whitesmoke;
 }
 
+.editInput {
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: inherit;
+}
+
+.label {
+    display: flex;
+}
+
+.label:focus {  
+    outline: none;
+}
+
 .listItem.light {
     background-color: aliceblue;
     color: black;

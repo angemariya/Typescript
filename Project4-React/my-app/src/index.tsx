@@ -13,8 +13,6 @@ root.render(
     <ThemeContainer>
       <App />
     </ThemeContainer>
-    
-{/* <App todos = {state.todos} inputValue={state.inputValue}/>*/}
   </React.StrictMode>
 );
 
