@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
-import { App } from './components/App';
-import { ThemeContainer } from './components/ThemeContainer';
+import './index.css';
+import App from '../src/App'
+import { createStore } from './connect';
+import { composedReducers, initialState } from './store';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ThemeContainer>
-      <App />
-    </ThemeContainer>
+    <App />
   </React.StrictMode>
 );
 
+createStore(composedReducers, initialState);

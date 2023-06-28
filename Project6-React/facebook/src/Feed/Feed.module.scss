@@ -1,0 +1,13 @@
+.feed {
+    width: 60vw;
+}
+
+.user {
+    width: 100%;
+    outline: 1px solid gray;
+    height: 50vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

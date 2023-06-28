@@ -158,20 +158,21 @@ function forEach<T>(
   arr: T[],
   cb: (el: T, index: number, array: T[]) => void
 ): void {
-  return undefined;
+
 }
 
-function filter<T>(arr: T[], cb: (el: T, index: number, array: T[]) => T): T[] {
+function filter<T>(arr: T[], cb: (el: T, index: number, array: T[]) => boolean): T[] {
   return [];
 }
 
-function reduce<T, U>(
+function reduce<T, U=T>(
   arr: T[],
-  cb: (acc: T, el: T, index: number, array: T[]) => U | T,
-  start: U
-): U | T {
-  return U || T;
+  cb: (acc: U, el: T, index: number, array: T[]) => U,
+  start?: U
+): U {
+  return undefined as any;
 }
+
 
 export function DNAtoRNA(dna: string): string {
   return dna

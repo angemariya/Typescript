@@ -25,7 +25,7 @@ export const Select = (props: {
   return (
     <>
       <label htmlFor='filter' className={styles.label}>
-        Choose filter:{' '}
+        Choose filter:
       </label>
       <select
         className={styles.select}

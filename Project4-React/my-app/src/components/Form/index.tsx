@@ -5,8 +5,6 @@ import { type Item } from '../App';
 import styles from './styles.module.scss'
 import { useState } from 'react';
 
-let id = 3;
-
 export const Form = (props: {
           todos: State, 
           onAddTodo:(newTodo: Item)=>void,
@@ -35,9 +33,9 @@ export const Form = (props: {
 
       <Button 
         buttonText="Add"
-        onClick={()=>{props.onAddTodo({id: id++, title, status: false})}}
+        onClick={()=>{props.onAddTodo({id: Date.now(), title, status: false})}}
         />
-    </form>
+    </form>  
   )
 };
   

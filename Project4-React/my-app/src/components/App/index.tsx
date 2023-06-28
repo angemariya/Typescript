@@ -21,7 +21,7 @@ export const state: State = [];
 export const App = () => {
   //MODEL
   const [todos, setTodos] = useState(state);
-  const [listName, setListName] = useState('todos');
+  const [listName, setListName] = useState('');
   const Theme = useContext(ThemeContext);
 
   const [filter, setFilter] = useState<boolean | undefined>(undefined);
@@ -29,7 +29,8 @@ export const App = () => {
     useEffect(() => {
         const todos = localStorage.getItem(listName);
         const parsedTodos = todos ? JSON.parse(todos) : [];
-        setTodos(parsedTodos);
+        setTodos(parsedTodos);  
+        console.log(listName);
       }, [listName]);
 
   //CONTROLLER
@@ -102,7 +103,7 @@ export const App = () => {
           onMarkTodo={markTodo}
           onEditTodo={editTodo}
         />
-        <Counter todos={todos} onListName={listName} onSetListName={setListName}/>
+        <Counter todos={todos} onListName={listName}/>
       </div>
     </div>
   );
