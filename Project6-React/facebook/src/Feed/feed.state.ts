@@ -1,4 +1,4 @@
-import { dispatch } from "../connect";
+import { dispatch, type Reducer } from "../connect";
 
 export interface FeedStateItem {
     username: string;
@@ -6,7 +6,7 @@ export interface FeedStateItem {
     text: string
 }
 
-export let feedState: FeedStateItem[] = [
+export const feedInitialState: FeedStateItem[] = [
     {
     username: "Vasya Pupkin",
     date: Date.now(),
@@ -15,6 +15,21 @@ export let feedState: FeedStateItem[] = [
 ]
 
 //add reducer
+
+
+export const reducer: Reducer<{Feed: typeof feedInitialState}> = (state, action) => {
+    if (action.type === "addFeed") {
+        return {
+            ...state,
+            Feed: {
+                ...state.Feed,
+                feedInitialState: [...state.Feed, action.payload]
+            }
+        }
+    }
+    return state
+}
+
 
 setTimeout(() => dispatch({
     type: "addFeed",

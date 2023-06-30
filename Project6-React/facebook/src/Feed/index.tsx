@@ -1,7 +1,8 @@
 import styles from './Feed.module.scss'
 import { connect } from "../connect";
-import { FeedStateItem, feedState } from "./feed.state";
+import { FeedStateItem, feedInitialState } from "./feed.state";
 import { dispatch } from '../connect';
+import { initialState } from '../store';
 
 export const Feed = (props: FeedStateItem[]) => {
 
@@ -12,7 +13,7 @@ export const Feed = (props: FeedStateItem[]) => {
     return (
         <section className={styles.feed}>
             <div>
-                {feedState.map((el) => 
+                {feedInitialState.map((el) => 
                     <div className={styles.user}>
                         {el.username}
                         <button onClick={()=>{dispatch({type: "addAds", payload: "ad block 2"});}}>Show text</button>
@@ -23,5 +24,5 @@ export const Feed = (props: FeedStateItem[]) => {
     )
 }
 
-export const FeedContainer = connect(feedState, Feed);
+export const FeedContainer = connect((state: typeof initialState)=>state.Feed, Feed);
 

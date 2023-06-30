@@ -32,7 +32,8 @@ export function connect<T extends {}, P>(mapStateToProps: (state:T)=>P, Componen
             };
             listeners.push(listener);
 
-            return () => {listeners.splice(listeners.indexOf(listener), 1)}; // удаляем созданную функцию из массива listener
+            return () => { listeners.splice(listeners.indexOf(listener), 1) };
+            // удаляем созданную функцию из массива listener
         }, [newProps])
 /*
         useEffect(() => {

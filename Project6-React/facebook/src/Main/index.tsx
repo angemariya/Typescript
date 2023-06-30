@@ -1,4 +1,4 @@
-import { Feed, FeedContainer } from "../Feed"
+import { FeedContainer } from "../Feed"
 import { AdsContainer } from "../Ads"
 import styles from './Main.module.scss'
  

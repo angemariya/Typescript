@@ -1,8 +1,10 @@
 import { dispatch, type Reducer } from "../connect";
 
-export const adsInitialState = {
+export const adsInitialState = 
+    {
     titlesArray: ["ad block 1"]
-}
+    }
+
 
 export const reducer: Reducer<{Ads: typeof adsInitialState}> = (state, action) => {
     if (action.type === "addAds") {
