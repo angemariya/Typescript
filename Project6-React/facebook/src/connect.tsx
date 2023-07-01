@@ -61,7 +61,7 @@ export function connect<T extends {}, P>(mapStateToProps: (state:T)=>P, Componen
     }
 }
 
-export function composeReducers<T extends {}>(...reducers: Reducer<T>[]): Reducer<T>  {
+export function composeReducers<T extends {}>(...reducers: Reducer<any>[]): Reducer<T>  {
     //return reducers.reduce((a, b) => (state, action) => b(a(state, action), action))
     return (state, action) => reducers.reduce((acc, el)=> el(acc, action), state)
 }
