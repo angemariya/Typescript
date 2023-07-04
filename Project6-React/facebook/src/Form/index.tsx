@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { dispatch } from '../connect'
 import styles from './Form.module.scss'
 import { actions } from '../Feed/feed.state';
 

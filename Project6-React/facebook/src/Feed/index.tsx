@@ -1,6 +1,6 @@
 import styles from './Feed.module.scss'
 import { connect } from "../connect";
-import { actions, feedInitialState } from "./feed.state";
+import { FeedStateItem, actions, feedInitialState } from "./feed.state";
 import { initialState } from '../store';
 import { useState } from 'react';
 import { Heart } from './Heart';
@@ -18,7 +18,7 @@ const Feed = (props: typeof feedInitialState) => {
                             (
                             <form onSubmit={e => {
                                 e.preventDefault();
-                                actions.editPost({id: el.id, text: postText})
+                                actions.editPost({...el, text: postText})
                                 setIsEdited(false)
                             }}>
                                 <textarea
@@ -29,7 +29,7 @@ const Feed = (props: typeof feedInitialState) => {
                             )
                             : el.text 
                         }
-                        <Heart />
+                        <Heart state={el as FeedStateItem} />
                         <button onClick={() => {
                             setPostText(el.text)
                             setIsEdited(true)
@@ -39,7 +39,7 @@ const Feed = (props: typeof feedInitialState) => {
                     </div>)}
                 <button
                     className={styles.myButton}
-                    onClick={() => actions.addFeed()}>Show more ... </button>
+                    onClick={() => actions.addFeed()}>Show more ...</button>
             </div>
         </section>
     )

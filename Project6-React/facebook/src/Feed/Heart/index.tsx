@@ -1,11 +1,15 @@
-import { useState } from "react"
+import { useState } from "react";
+import styles from './Heart.module.scss';
+import { FeedStateItem, actions } from "../feed.state";
 
-export const Heart = () => {
-    const [isClicked, setIsCliked ] = useState(false)
- 
+
+export const Heart = (props: {state:FeedStateItem}) => {
+
     return (
-        <span>
-            <svg fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+        <span onClick={() => {
+            actions.setLike(props.state);
+        }}>
+            <svg className={props.state.isLiked === true ? styles.clicked : styles.heart} fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 471.701 471.701">
                 <g>
                     <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1
