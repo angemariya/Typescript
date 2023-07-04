@@ -1,30 +1,45 @@
 import styles from './Feed.module.scss'
 import { connect } from "../connect";
-import { feedInitialState } from "./feed.state";
-import { dispatch } from '../connect';
+import { actions, feedInitialState } from "./feed.state";
 import { initialState } from '../store';
+import { useState } from 'react';
+import { Heart } from './Heart';
 
 const Feed = (props: typeof feedInitialState) => {
+    const [postText, setPostText] = useState("")
+    const [isEdited, setIsEdited] = useState(false)
 
     return (
         <section className={styles.feed}>
             <div>
-                {props.FeedArray.map((el) =>
+                {props.FeedArray.map(el =>
                     <div className={styles.user} key={el.id}>
-                        {el.text}
+                        {isEdited ?
+                            (
+                            <form onSubmit={e => {
+                                e.preventDefault();
+                                actions.editPost({id: el.id, text: postText})
+                                setIsEdited(false)
+                            }}>
+                                <textarea
+                                    value = {postText} //тут исправить
+                                    onChange={e => setPostText(e.target.value)} />
+                                <button> Done! </button>
+                            </form>
+                            )
+                            : el.text 
+                        }
+                        <Heart />
+                        <button onClick={() => {
+                            setPostText(el.text)
+                            setIsEdited(true)
+                        }}>Edit post</button>
+                        <button onClick={() => actions.deletePost(el.id)}>Delete post</button>
+                        <button>Like</button>
                     </div>)}
                 <button
                     className={styles.myButton}
-                    onClick={() => dispatch(
-                            {
-                                type: "addFeed",
-                                payload:
-                                {
-                                    id: Date.now(),
-                                    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum repellendus excepturi ab officia voluptatibus reiciendis saepe reprehenderit quos est quia. Inventore necessitatibus error est facere explicabo iusto nisi quia ut?"
-                                }
-                            }
-                        )}>Show more ... </button>
+                    onClick={() => actions.addFeed()}>Show more ... </button>
             </div>
         </section>
     )
@@ -32,3 +47,5 @@ const Feed = (props: typeof feedInitialState) => {
 
 export const FeedContainer = connect((state: typeof initialState) => state.Feed, Feed);
 
+//value={postText ? (setPostText(el.text) && postText) : el.text} -- не работает!
+//как исправить одновременное редактирование у всех постов? 

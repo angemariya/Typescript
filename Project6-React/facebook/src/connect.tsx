@@ -61,7 +61,15 @@ export function connect<T extends {}, P>(mapStateToProps: (state:T)=>P, Componen
     }
 }
 
-export function composeReducers<T extends {}>(...reducers: Reducer<any>[]): Reducer<T>  {
+type CombinedReducer<T extends unknown[]> = Reducer<CombinedState<T>>;
+type CombinedState<T extends unknown[]> =
+  T extends [Reducer<infer R>]
+    ? R
+    : T extends [Reducer<infer R1>, ...infer REST]
+      ? R1 & CombinedState<REST>
+      : {};
+
+export function composeReducers<T extends Reducer<any>[]>(...reducers: T): CombinedReducer<T>  {
     //return reducers.reduce((a, b) => (state, action) => b(a(state, action), action))
     return (state, action) => reducers.reduce((acc, el)=> el(acc, action), state)
 }
@@ -70,3 +78,35 @@ export function createStore<T extends {}>(reducer: Reducer<T>, initialState: T) 
     stateSaver = initialState;
     stateReducer = reducer;
 }
+
+export function createAction<T extends unknown[]> (type: string, callback: (...args: T)=>unknown) {
+    return (...args: T) => {
+        dispatch({type, payload: callback(...args)})
+    }
+}
+
+type FuncDictionary = {
+    [index: string]: (...args: any[]) => any;
+}
+
+type Actions<T extends FuncDictionary> = {
+    [K in keyof T]: (...args: Parameters<T[K]>) => void;
+}
+
+export function createActions<T extends FuncDictionary> (actions: T): Actions<T>{
+  return Object.keys(actions) //pattern
+      .reduce((acc, key) =>
+        
+            (acc[key] = createAction(key as string, actions[key]))
+            && acc,
+        /*({
+            ...acc,
+            [key]: createAction(key as string, actions[key])
+        }), 
+        */
+        {} as Actions<T>)
+}
+
+//редактирование постов
+//лайк (мои лайки)
+//рефакторинг на использование createActions

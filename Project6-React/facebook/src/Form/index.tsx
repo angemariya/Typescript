@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { dispatch } from '../connect'
 import styles from './Form.module.scss'
+import { actions } from '../Feed/feed.state';
 
 export const Form = () => {
 
@@ -15,7 +16,7 @@ export const Form = () => {
     }
 
     const handlePostChange = () => {
-        dispatch({ type: "addPost", payload: { id: Date.now(), text: newPost } })
+        actions.addPost(newPost);
         setNewPost("");
     }
 
@@ -26,7 +27,9 @@ export const Form = () => {
                 value={newPost}
                 onChange={handleTextChange}
                 className={styles.textarea}
-                placeholder="What's on your mind?"></textarea>
+                placeholder="What's on your mind?">
+                
+                </textarea>
             <button onClick={handlePostChange} className={styles.myButton}>Post</button>
         </form>
     )

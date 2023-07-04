@@ -1,42 +1,97 @@
-import { type Reducer } from "../connect";
+import { idText } from "typescript";
+import { createActions, type Reducer } from "../connect";
 
 export interface FeedStateItem {
-    id: number;
-    text: string
+  id: number;
+  text: string
 }
 
 type GeneralState = {
-    FeedArray: FeedStateItem[]
+  FeedArray: FeedStateItem[]
 }
 
 export const feedInitialState: GeneralState = {
-    FeedArray: [
+  FeedArray: [
     {
-        id: Math.random(),
-        text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque praesentium ab aut consequatur facere quaerat eveniet provident. Tenetur quibusdam facere nam! Saepe facere distinctio repellat quo cumque officia voluptatum dolore!"
+      id: Math.random(),
+      text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque praesentium ab aut consequatur facere quaerat eveniet provident. Tenetur quibusdam facere nam! Saepe facere distinctio repellat quo cumque officia voluptatum dolore!"
     },
-    ]
+  ]
 };
 
+export const actions = createActions({
+  addFeed: () => ({
+    id: Math.random(),
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum repellendus excepturi ab officia voluptatibus reiciendis saepe reprehenderit quos est quia. Inventore necessitatibus error est facere explicabo iusto nisi quia ut?"
+  }),
 
-export const reducer: Reducer<{Feed: typeof feedInitialState}> = (state, action) => {
+  addPost: (payload: string) => ({
+      id: Math.random(),
+      text: payload
+    }),
+
+  deletePost: (payload: number) => {
+    return payload
+  },
+
+  editPost: (payload: FeedStateItem) => ({
+    id: payload.id,
+    text: payload.text
+  })
+
+})
+
+export const reducer: Reducer<{ Feed: typeof feedInitialState }> = (state, action) => {
   if (action.type === "addFeed") {
     return {
       ...state,
-        Feed: {
-            ...state.Feed,
-            FeedArray: [...state.Feed.FeedArray, action.payload]
-        }
+      Feed: {
+        ...state.Feed,
+        FeedArray: [...state.Feed.FeedArray, action.payload]
+      }
     };
   }
-    if (action.type === "addPost") {
+  if (action.type === "addPost") {
     return {
       ...state,
-        Feed: {
-            ...state.Feed,
-            FeedArray: [...state.Feed.FeedArray, action.payload]
-        }
+      Feed: {
+        ...state.Feed,
+        FeedArray: [action.payload, ...state.Feed.FeedArray]
+      }
     };
+  }
+  if (action.type === "deletePost") {
+    return {
+      ...state,
+      Feed: {
+        ...state.Feed,
+        FeedArray: state.Feed.FeedArray.filter(el => el.id !== action.payload)
+      }
     }
+  }
+  if (action.type === "editPost") {
+    const trgt = state.Feed.FeedArray.find(el => el.id === action.payload.id) //нашли объект с id и text
+    
+    trgt && (trgt.text = action.payload.text)
+
+    return {
+      ...state,
+      Feed: {
+        ...state.Feed,
+        FeedArray: [...state.Feed.FeedArray]
+      }
+    }
+  }
+
   return state;
 };
+
+
+const deleteFeedCreator = (payload: FeedStateItem) => {
+  return {
+    type: 'delete',
+    payload
+  }
+}
+
+//dispatch(addFeedCreator({id: Math.random(); text: "blabla this is new post"}))
