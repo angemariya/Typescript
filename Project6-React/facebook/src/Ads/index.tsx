@@ -2,7 +2,6 @@ import {  adsInitialState } from "./ads.state";
 import {  connect } from "../connect";
 import { initialState } from "../store";
 import styles from './Ads.module.scss'
-import { dispatch } from "../connect";
 
 const Ads = (props: typeof adsInitialState) => (
   <section className={styles.ads}>

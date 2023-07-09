@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import styles from './Form.module.scss'
 import { actions } from '../Feed/feed.state';
+import { Filters } from '../Feed/Filters';
 
 export const Form = () => {
 
@@ -21,15 +22,19 @@ export const Form = () => {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit} >
-            <label htmlFor="">Create your new post</label>
+            <label>Create your new post</label>
             <textarea
                 value={newPost}
                 onChange={handleTextChange}
                 className={styles.textarea}
                 placeholder="What's on your mind?">
                 
-                </textarea>
-            <button onClick={handlePostChange} className={styles.myButton}>Post</button>
+            </textarea>
+            <div className={styles.buttonsWrapper}>
+                <Filters />
+                <button onClick={handlePostChange} className={styles.myButton}>Post</button> 
+            </div>
+            
         </form>
     )
 } 

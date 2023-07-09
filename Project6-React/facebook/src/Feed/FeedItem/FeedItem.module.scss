@@ -1,8 +1,31 @@
-.feed {
-    width: 60vw;
-    box-shadow: 8px 8px 25px -4px rgba(150, 150, 150, 0.24);
+
+.post {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
     border-radius: 10px;
-    margin: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 8px 8px 25px -4px rgba(150, 150, 150, 0.24);
+}
+
+.editTextarea {
+    width: 50vw;
+    padding: 30px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    resize: none;
+    color: black;
+}
+
+.date {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .myButton {

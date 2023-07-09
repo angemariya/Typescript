@@ -1,5 +1,13 @@
+.ads {
+  width: 40vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
 .element {
-    width: 40vw;
+  height: 370px;
+  overflow: hidden;
 }
 
 .img {
