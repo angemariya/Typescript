@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { Heart } from "../Heart";
-import { FeedStateItem, actions } from "../feed.state";
+import { FeedStateItem, feedSlice } from "../feed.state";
 import styles from "./FeedItem.module.scss";
 import { AiFillEdit, AiOutlineDelete } from "react-icons/ai"
 import moment from "moment";
@@ -18,7 +18,7 @@ export const FeedItem = (props: FeedStateItem) => {
                 (
                 <form onSubmit={e => {
                     e.preventDefault();
-                    actions.editPost({...props, text: postText, date: moment().format('MMMM Do YYYY, h:mm:ss a')})
+                    feedSlice.actions.editPost({...props, text: postText, date: moment().format('MMMM Do YYYY, h:mm:ss a')})
                     setIsEdited(false)
                 }}>
                         <textarea
@@ -41,7 +41,7 @@ export const FeedItem = (props: FeedStateItem) => {
                 }}><AiFillEdit /></button>
                 <button
                     className={styles.myButton}
-                    onClick={() => actions.deletePost(props.id)
+                    onClick={() => feedSlice.actions.deletePost(props.id)
                     }><AiOutlineDelete /></button>
             </div>
         </div>

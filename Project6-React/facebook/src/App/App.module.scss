@@ -1,5 +1,7 @@
 .App {
-    display: flex;
+    display: grid;
+    grid-template-columns: (auto-fit, minmax(1fr, 2fr));
+    grid-template-rows: auto auto auto;
     line-height: 1.5;
-    flex-direction: column;
+    gap: 10px;
 }

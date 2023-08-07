@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import styles from './Form.module.scss'
-import { actions } from '../Feed/feed.state';
+import { feedSlice } from '../Feed/feed.state';
 import { Filters } from '../Feed/Filters';
 
 export const Form = () => {
@@ -16,7 +16,7 @@ export const Form = () => {
     }
 
     const handlePostChange = () => {
-        actions.addPost(newPost);
+        feedSlice.actions.addPost(newPost);
         setNewPost("");
     }
 

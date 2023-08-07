@@ -104,11 +104,6 @@ export function createActions<T extends FuncDictionary>(actions: T): Actions<T> 
 
             (acc[key] = createAction(key as string, actions[key]))
             && acc,
-            /*({
-                ...acc,
-                [key]: createAction(key as string, actions[key])
-            }), 
-            */
             {} as Actions<T>)
 }
 
@@ -118,8 +113,8 @@ export function createReducer<
     S extends {},
     P extends string,
     T extends BranchesDictionary<S> = BranchesDictionary<S>
-    >(prefix: P, branches: T): Reducer<{[prefix in typeof prefix]: S}> {
-    const helperFunc = (state: {[prefix in typeof prefix]: S}, arg: Patch<S>, action: Action) => ({
+>(prefix: P, branches: T): Reducer<{ [prefix in typeof prefix]: S }> {
+    const helperFunc = (state: { [prefix in typeof prefix]: S }, arg: Patch<S>, action: Action) => ({
         ...state,
         [prefix]: {
             ...state[prefix],
@@ -134,6 +129,59 @@ export function createReducer<
         return state;
     }
 }
+
+type SliceActions<S extends {}, T extends ReducerDictionary<S>> = {
+    [K in keyof T]: (...args: Parameters<T[K]["prepare"]>) => void;
+}
+
+export type Slice<P extends string, S extends {}, A extends ReducerDictionary<S>> = {
+    initialState: { [prefix in P]: S };
+    reducer: Reducer<{ [prefix in P]: S }>;
+    actions: SliceActions<S, A>
+}
+
+type ReducerDictionary<S extends {}> = {
+    [index: string]: {
+        reducer: (state: S, action: Action) => Partial<S>,
+        prepare: (...args: any[]) => any
+    }
+}
+
+export function createSlice<
+    P extends string,
+    S extends {},
+    A extends ReducerDictionary<S> = ReducerDictionary<S>>
+    (prefix: P, initialState: S, actions: A): Slice<P, S, A> {
+    return {
+        initialState: {
+            [prefix]: initialState
+        } as { [prefix in P]: S },
+        reducer: createReducer(prefix, Object.keys(actions)
+            .reduce((acc, key) => (acc[key] = actions[key].reducer) && acc,
+                {} as any)),
+        actions: createActions(Object.keys(actions)
+            .reduce((acc, key) => (acc[key] = actions[key].prepare) && acc,
+                {} as any)) as any,
+    }
+}
+
+export function useSelector<T extends {}, P>(mapStateToProps: (state: T) => P) {
+    const data = mapStateToProps(stateSaver);
+    const [, setCount] = useState(0);
+
+    useEffect(() => {
+        const listener = () => {
+            mapStateToProps(stateSaver) !== data && setCount(prev => prev + 1)
+        };
+        listeners.push(listener);
+
+        return () => { listeners.splice(listeners.indexOf(listener), 1) };
+        // удаляем созданную функцию из массива listener
+    }, [data])
+    return data;
+}
+
+
 /*
 type StringLiteral = "literal" //тип строковый литерал
 

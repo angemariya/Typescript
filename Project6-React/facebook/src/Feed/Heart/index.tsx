@@ -1,12 +1,12 @@
 import styles from './Heart.module.scss';
-import { FeedStateItem, actions } from "../feed.state";
+import { FeedStateItem, feedSlice } from "../feed.state";
 
 
 export const Heart = (props: FeedStateItem) => {
 
     return (
         <span onClick={() => {
-            actions.setLike(props);
+            feedSlice.actions.setLike(props);
         }}>
             <svg
                 className={props.isLiked === true ? styles.clicked : styles.heart}

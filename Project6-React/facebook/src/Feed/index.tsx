@@ -1,12 +1,10 @@
 import styles from './Feed.module.scss'
 import { connect } from "../connect";
-import { FeedStateItem, actions, feedInitialState } from "./feed.state";
+import { feedSlice, GeneralState } from "./feed.state";
 import { initialState } from '../store';
-import { useState } from 'react';
-import { Heart } from './Heart';
 import { FeedItem } from './FeedItem';
 
-const Feed = (props: typeof feedInitialState) => {
+const Feed = (props: GeneralState) => {
 
 
     return (
@@ -15,7 +13,7 @@ const Feed = (props: typeof feedInitialState) => {
                 { props.FeedArray.map(el => <FeedItem {...el}/>) }
                 <button
                     className={styles.myButton}
-                    onClick={() => actions.addFeed()}>Show more ...</button>
+                    onClick={() => feedSlice.actions.addFeed()}>Show more ...</button>
             </div>
         </section>
     )
@@ -23,4 +21,3 @@ const Feed = (props: typeof feedInitialState) => {
 
 export const FeedContainer = connect((state: typeof initialState) => state.Feed, Feed);
 
-//как исправить одновременное редактирование у всех постов? 
